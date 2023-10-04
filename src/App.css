@@ -27,3 +27,12 @@
   transition: border-color 0.25s;
   color: white;
 }
+.slider{
+  margin-left: 20px;
+}
+.title{
+  margin-top: 20px;
+  margin-left: 40%;
+  font-size: xx-large;
+  font-weight: bold;
+}
