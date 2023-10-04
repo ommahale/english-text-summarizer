@@ -1,19 +1,29 @@
 import { useState } from 'react'
-import { Divider, Card, CardHeader, CardBody, CardFooter, SimpleGrid, Heading, Button, Text, Input, Box, Textarea } from '@chakra-ui/react'
+import { Divider, Card, CardHeader, CardBody, CardFooter, SimpleGrid, Heading, Button, Text, Input, Box, Textarea, Spinner } from '@chakra-ui/react'
 import './App.css'
 import axios from 'axios';
 
 function App() {
   const [count, setCount] = useState(0)
   const [text, setText] = useState('');
+  const [summary, setSummary] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
+
 
   const handleSubmit = () => {
+    setIsLoading(true)
     axios.post('http://localhost:8000/summarize', { text })
       .then(response => {
         // Handle the response from the server here
-        console.log(response.data); // You can replace this with your logic
+        setIsLoading(false)
+        console.log(response.data); 
+        console.log(response.data[0]?.summary_text); 
+        setSummary(response.data[0]?.summary_text || ''); 
+
+
       })
       .catch(error => {
+        setIsLoading(false)
         console.error('Error:', error);
       });
   };
@@ -62,9 +72,15 @@ function App() {
           <Divider orientation='horizontal' />
 
           <CardBody>
-            <Textarea
-              className='inputText'
-            />
+            {isLoading ? ( // Show Spinner while loading
+              <Spinner size='lg' color='blue.500' />
+            ) : (
+              <Textarea
+                className='inputText'
+                readOnly
+                value={summary}
+              />
+            )}
           </CardBody>
 
         </Card>
