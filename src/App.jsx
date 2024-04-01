@@ -27,7 +27,6 @@ function App() {
     const percentage = sliderValue;
     const requestData = {
       text,
-      percentage, // Include the calculated word count in the request data
     };
 
     axios.post('http://localhost:8000/summarize', requestData)
@@ -62,7 +61,7 @@ function App() {
 
         <Card className='card' gridColumn="span 2" height='80vh'>
           <CardHeader>
-            <Heading size='md'> Input Text (set the length of summary you need)</Heading>
+            <Heading size='md'> Input Text</Heading>
 
           </CardHeader>
           <Divider orientation='horizontal' />
@@ -82,27 +81,6 @@ function App() {
             >
               Summarize
             </Button>
-            {/* <div> */}
-            <Slider
-              className='slider'
-              aria-label='slider-ex-4'
-              value={sliderValue}
-              onChange={handleSlideChange}
-              min={0}
-              max={100}
-              step={1}
-              focusThumbOnChange={false}>
-              <SliderTrack bg='red.100'>
-                <SliderFilledTrack bg='tomato' />
-              </SliderTrack>
-              <SliderThumb boxSize={6}>
-                <Box color='tomato' />
-              </SliderThumb>
-            </Slider>
-            <Text ml={4} fontWeight="bold">
-              {sliderValue}%
-            </Text>
-            {/* </div> */}
           </CardFooter>
         </Card>
 
