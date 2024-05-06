@@ -5,6 +5,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
+  HStack,
+  VStack
 
 } from '@chakra-ui/react'
 import './App.css'
@@ -27,7 +29,6 @@ function App() {
     const percentage = sliderValue;
     const requestData = {
       text,
-      percentage, // Include the calculated word count in the request data
     };
 
     axios.post('http://localhost:8000/summarize', requestData)
@@ -35,9 +36,10 @@ function App() {
         // Handle the response from the server here
         setIsLoading(false)
         console.log(response.data);
-        console.log(response.data[0]?.summary_text);
-        setSummary(response.data[0]?.summary_text || '');
-
+        // console.log(response.data[0]?.summary_text);
+        setSummary(response.data[0]);
+        // setSummary(response.data[0]?.abstracted || '');
+        console.log({summary})
 
       })
       .catch(error => {
@@ -51,22 +53,19 @@ function App() {
 
   return (
     <div>
-      <h1 className='title'>Text Summarizer</h1>
-      <SimpleGrid
+      <h1 className='title'>पाठ सारांश</h1>
+      {/* <SimpleGrid
         spacing={8}
-        templateColumns='repeat(5, 1fr)'
+        templateColumns='1fr 1fr'
         sx={{
           margin: '50px 0px 0px 200px'
         }}
       >
-
-        <Card className='card' gridColumn="span 2" height='80vh'>
+        <Card className='card' height='80vh'>
           <CardHeader>
-            <Heading size='md'> Input Text (set the length of summary you need)</Heading>
-
+            <Heading size='md'> Input Text</Heading>
           </CardHeader>
           <Divider orientation='horizontal' />
-
           <CardBody>
             <Textarea
               placeholder='Enter Text and click on the button "Summarize"'
@@ -75,44 +74,21 @@ function App() {
               onChange={handleTextChange}
             />
           </CardBody>
-          <CardFooter >
+          <CardFooter>
             <Button
               className='button'
               onClick={() => { handleSubmit() }}
             >
               Summarize
             </Button>
-            {/* <div> */}
-            <Slider
-              className='slider'
-              aria-label='slider-ex-4'
-              value={sliderValue}
-              onChange={handleSlideChange}
-              min={0}
-              max={100}
-              step={1}
-              focusThumbOnChange={false}>
-              <SliderTrack bg='red.100'>
-                <SliderFilledTrack bg='tomato' />
-              </SliderTrack>
-              <SliderThumb boxSize={6}>
-                <Box color='tomato' />
-              </SliderThumb>
-            </Slider>
-            <Text ml={4} fontWeight="bold">
-              {sliderValue}%
-            </Text>
-            {/* </div> */}
           </CardFooter>
         </Card>
 
-
-        <Card className='card' gridColumn="span 2">
+        <Card className='card' height='40vh'>
           <CardHeader>
-            <Heading size='md'> Summary</Heading>
+            <Heading size='md'> Headline Text</Heading>
           </CardHeader>
           <Divider orientation='horizontal' />
-
           <CardBody>
             {isLoading ? ( // Show Spinner while loading
               <Spinner size='lg' color='blue.500' />
@@ -124,9 +100,102 @@ function App() {
               />
             )}
           </CardBody>
-
         </Card>
-      </SimpleGrid>
+
+        <Card className='card' height='40vh'>
+          <CardHeader>
+            <Heading size='md'> Summary</Heading>
+          </CardHeader>
+          <Divider orientation='horizontal' />
+          <CardBody>
+            {isLoading ? ( // Show Spinner while loading
+              <Spinner size='lg' color='blue.500' />
+            ) : (
+              <Textarea
+                className='inputText'
+                readOnly
+                value={summary}
+              />
+            )}
+          </CardBody>
+        </Card>
+      </SimpleGrid> */}
+
+
+      <HStack 
+      spacing={12}
+        sx={{
+          margin: '50px 0px 0px 100px',
+          width: '80%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <Card className='card' width={'45%'} height='80vh'>
+          <CardHeader>
+            <Heading size='md'> मूलपाठ</Heading>
+          </CardHeader>
+          <Divider orientation='horizontal' />
+          <CardBody>
+            <Textarea
+              placeholder='टेक्स्ट दर्ज करें और "संक्षेप" बटन पर क्लिक करें'
+              className='inputText'
+              value={text}
+              onChange={handleTextChange}
+            />
+          </CardBody>
+          <CardFooter>
+            <Button
+              className='button'
+              onClick={() => { handleSubmit() }}
+            >
+              संक्षेप
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <VStack width={'45%'} height={'80vh'} sx={{ justifyContent: 'space-between' }}>
+          <Card className='card' width={'full'}  height='38vh'>
+            <CardHeader>
+              <Heading size='md'> सुझाया गया शीर्षक</Heading>
+            </CardHeader>
+            <Divider orientation='horizontal' />
+            <CardBody>
+              {isLoading ? ( // Show Spinner while loading
+                <Spinner size='lg' color='blue.500' />
+              ) : (
+                <Textarea
+                placeholder='शीर्षक यहां दिखाई देगा'
+                  className='inputText'
+                  readOnly
+                  value={summary?.abstracted}
+                />
+              )}
+            </CardBody>
+          </Card>
+
+          <Card className='card' width={'full'} height='38vh'>
+            <CardHeader>
+              <Heading size='md'> सारांश</Heading>
+            </CardHeader>
+            <Divider orientation='horizontal' />
+            <CardBody>
+              {isLoading ? ( // Show Spinner while loading
+                <Spinner size='lg' color='blue.500' />
+              ) : (
+                <Textarea
+                placeholder='सारांश यहां दिखाई देगा'
+                  className='inputText'
+                  readOnly
+                  value={summary?.summary_text}
+                />
+              )}
+            </CardBody>
+          </Card>
+        </VStack>
+
+      </HStack>
+
     </div>
   )
 }
