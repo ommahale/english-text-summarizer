@@ -13,20 +13,14 @@ import './App.css'
 import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
   const [text, setText] = useState('');
   const [summary, setSummary] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sliderValue, setSliderValue] = useState(50); // Initial slider value (e.g., 50%)
 
-  const handleSlideChange = (value) => {
-    setSliderValue(value);
-  };
 
 
   const handleSubmit = () => {
     setIsLoading(true)
-    const percentage = sliderValue;
     const requestData = {
       text,
     };
@@ -52,75 +46,10 @@ function App() {
   };
 
   return (
-    <div>
-      <h1 className='title'>पाठ सारांश</h1>
-      {/* <SimpleGrid
-        spacing={8}
-        templateColumns='1fr 1fr'
-        sx={{
-          margin: '50px 0px 0px 200px'
-        }}
-      >
-        <Card className='card' height='80vh'>
-          <CardHeader>
-            <Heading size='md'> Input Text</Heading>
-          </CardHeader>
-          <Divider orientation='horizontal' />
-          <CardBody>
-            <Textarea
-              placeholder='Enter Text and click on the button "Summarize"'
-              className='inputText'
-              value={text}
-              onChange={handleTextChange}
-            />
-          </CardBody>
-          <CardFooter>
-            <Button
-              className='button'
-              onClick={() => { handleSubmit() }}
-            >
-              Summarize
-            </Button>
-          </CardFooter>
-        </Card>
-
-        <Card className='card' height='40vh'>
-          <CardHeader>
-            <Heading size='md'> Headline Text</Heading>
-          </CardHeader>
-          <Divider orientation='horizontal' />
-          <CardBody>
-            {isLoading ? ( // Show Spinner while loading
-              <Spinner size='lg' color='blue.500' />
-            ) : (
-              <Textarea
-                className='inputText'
-                readOnly
-                value={summary}
-              />
-            )}
-          </CardBody>
-        </Card>
-
-        <Card className='card' height='40vh'>
-          <CardHeader>
-            <Heading size='md'> Summary</Heading>
-          </CardHeader>
-          <Divider orientation='horizontal' />
-          <CardBody>
-            {isLoading ? ( // Show Spinner while loading
-              <Spinner size='lg' color='blue.500' />
-            ) : (
-              <Textarea
-                className='inputText'
-                readOnly
-                value={summary}
-              />
-            )}
-          </CardBody>
-        </Card>
-      </SimpleGrid> */}
-
+    <div style={{ backgroundColor: '#f7f7f7', color: '#333', paddingBottom: '35px', paddingTop:"20px" }}>
+      <h1 className='title' sx={{
+        marginTop: '0px'
+      }}>पाठ सारांश</h1>
 
       <HStack 
       spacing={12}
@@ -131,9 +60,9 @@ function App() {
           marginRight: 'auto',
         }}
       >
-        <Card className='card' width={'45%'} height='80vh'>
-          <CardHeader>
-            <Heading size='md'> मूलपाठ</Heading>
+        <Card className='card' width={'45%'} height='80vh' bg="white" color="black">
+          <CardHeader bg='blue.700' borderTopRadius={'2xl'}>
+            <Heading size='md' color={'white'}> मूलपाठ</Heading>
           </CardHeader>
           <Divider orientation='horizontal' />
           <CardBody>
@@ -142,12 +71,18 @@ function App() {
               className='inputText'
               value={text}
               onChange={handleTextChange}
+              bg="white"
+              color="black"
             />
           </CardBody>
           <CardFooter>
             <Button
               className='button'
+              background='#2D3250'
               onClick={() => { handleSubmit() }}
+              sx={{
+                backgroundColor: "#4E9F3D"
+              }}
             >
               संक्षेप
             </Button>
@@ -155,9 +90,9 @@ function App() {
         </Card>
 
         <VStack width={'45%'} height={'80vh'} sx={{ justifyContent: 'space-between' }}>
-          <Card className='card' width={'full'}  height='38vh'>
-            <CardHeader>
-              <Heading size='md'> सुझाया गया शीर्षक</Heading>
+          <Card className='card' width={'full'}  height='38vh' bg="white" color="black">
+          <CardHeader bg='blue.700' borderTopRadius={'2xl'}>
+          <Heading size='md' color={'white'}> सुझाया गया शीर्षक</Heading>
             </CardHeader>
             <Divider orientation='horizontal' />
             <CardBody>
@@ -169,14 +104,16 @@ function App() {
                   className='inputText'
                   readOnly
                   value={summary?.abstracted}
+                  bg="white"
+                  color="black"
                 />
               )}
             </CardBody>
           </Card>
 
-          <Card className='card' width={'full'} height='38vh'>
-            <CardHeader>
-              <Heading size='md'> सारांश</Heading>
+          <Card className='card' width={'full'} height='38vh' bg="white" color="black">
+          <CardHeader bg='blue.700' borderTopRadius={'2xl'}>
+          <Heading size='md' color={'white'}> सारांश</Heading>
             </CardHeader>
             <Divider orientation='horizontal' />
             <CardBody>
@@ -188,6 +125,8 @@ function App() {
                   className='inputText'
                   readOnly
                   value={summary?.summary_text}
+                  bg="white"
+                  color="black"
                 />
               )}
             </CardBody>

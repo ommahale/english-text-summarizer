@@ -1,10 +1,16 @@
+*{
+  background-color: '#f7f7f7';
+}
+.body{
+  background-color: '#f7f7f7';
+  height: 100%;
+  padding-bottom: 20px;
+}
 
 .inputText{
   height: 100%;
   width: 100%;
   white-space: pre-line;
-  /* overflow-y: break-word;
-  overflow-y: scroll; */
   text-align: left;
   vertical-align: top;
   resize: none;
@@ -27,12 +33,10 @@
   transition: border-color 0.25s;
   color: white;
 }
-.slider{
-  margin-left: 20px;
-}
+
 .title{
-  margin-top: 20px;
   margin-left: 40%;
   font-size: xx-large;
   font-weight: bold;
 }
+
