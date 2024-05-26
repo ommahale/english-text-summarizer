@@ -106,6 +106,7 @@ function App() {
             >
               संक्षेप
             </Button>
+
             {fileUploaded ? (
               <Button
                 className='button'
@@ -115,6 +116,7 @@ function App() {
               >
                 फ़ाइल को खारिज करें
               </Button>
+
             ) : (
               <Button
                 className='button'
